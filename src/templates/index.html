@@ -1,20 +1,82 @@
 {% extends 'layout.html' %}
-{% block title %}
-{{super()}}
-Home
-{% endblock %}
-
-
-{% block header %}
-
-{% endblock %}
 
 {% block main %}
+<form action="/" method="post">
+    <section class="fondo">
+  <div class="formulario0">
+      <section class="formulario">
+  
+  
+  <div class="field">
+      <label class="label">Nombre</label>
+      <div class="control">
+        <input class="input is-rounded" type="text" placeholder="Marta" name="nombre" required>
+      </div>
+    </div>
+    
+    <div class="field">
+      <label class="label">Apellidos</label>
+      <div class="control has-icons-left has-icons-right">
+        
+        <input class="input is-rounded" type="text" placeholder="Caballero Hernández" name="apellidos" required>
+        <span class="icon is-small is-left">
+          <i class="fas fa-user"></i>
+        </span>
+        <span class="icon is-small is-right">
 
-{{ ejemplo }}
+          <i class="fas fa-check"></i>
+        </span>
+  
+      </div>
+    </div>
+    
+    <div class="field">
+      <label class="label">Email</label>
+      <div class="control has-icons-left has-icons-right">
+        <input class="input is-rounded" type="email" placeholder="marta.caballero@gmail.com" name="email" required>
+        <span class="icon is-small is-left">
+          <i class="fas fa-envelope"></i>
+        </span>
+        <span class="icon is-small is-right">
+          {% if texto == 'email' %}
+          <i class="fas fa-exclamation-triangle"></i>
+          {% else %}
+          <i class="fas fa-check"></i>
+          {% endif %}
+        </span>
+      </div>
+      {% if texto == 'email' %}
+      <p class="help is-danger">Este email ya existe, <a href="/login">Logearse</a></p>
+      {% endif %}
+    </div>
+   
+  
+  
+       
+          <div class="field">
+              <label for="" class="label">Contraseña:
+                <input class="input is-rounded" type="password" placeholder="******" name="contrasena" required>
+            </label>
+          </div>
+    
+                
+          <div class="field">
+            <label for="" class="label">Localidad:
+          <input class="input is-rounded" type="text" placeholder="Localidad" name="localidad" required></label>
+                </div>
+    
 
-{% endblock %}
-
-{% block footer %}
-
+    
+    
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-primary is-rounded" type="submit">Registrarme</button>
+      </div>
+    </div>
+    <div class="field">
+    </div>
+  </section>
+  </div>
+  </form>
+  </section>
 {% endblock %}

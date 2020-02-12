@@ -6,25 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
     <title>{% block title %} Basuras - {% endblock %}</title>
 </head>
 
 <body>
-    <section class="section">
-        <div class="container">
-            {% block header %}
-
-            {% endblock %}
-
-            {% block main %}
-
-            {% endblock %}
-
-            {% block footer %}
-
-            {% endblock %}
-        </div>
-    </section>
+    <main>
+        <section class="section">
+            <div class="container">
+                {% block header %}
+    
+                {% endblock %}
+    
+                {% block main %}
+    
+                {% endblock %}
+            </div>
+        </section>
+    </main>
+    {% block footer %}
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>Aplicación municipal de gestión de basura</strong> por la fila 2. Código con licencia
+                    <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+                    <br> Curso de formación dual de desarrollo de aplicaciones MUEVETE 19-20
+                </p>
+            </div>
+        </footer>
+    {% endblock %}
 </body>
 
 </html>

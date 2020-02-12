@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request, url_for, session
 from libreria import *
+from bson import ObjectId
 import os
 
 from pymongo import MongoClient
@@ -72,6 +73,16 @@ def comprobar():
                 return redirect(url_for('home'))
     return render_template('login.html')
 
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    if 'email' in session:
+        email = session["email"]
+        usuario = collection_usuarios.find_one({'email': email})
+        id = usuario["_id"]
+        calendario = collection.find_one({'usuario' : ObjectId(id)})
+        return render_template('home.html', usuario = calendario)
+    else:
+        return redirect(url_for('index'))
 
 if __name__ == "__main__":
     # Esto es un problema porque no le podemos poner un puerto de salida, para eso vamos a crear lo siguiente:

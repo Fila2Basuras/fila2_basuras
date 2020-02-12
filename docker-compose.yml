@@ -1,0 +1,20 @@
+version: "3"
+# Entre una version y otra no hay versiones intermedias
+
+# COMMAND: 
+            # docker-compose up -d
+            # docker-compose down
+services:
+    app:
+        build: .
+        image: fila2Basuras
+        container_name: fila2Basuras
+        ports:
+            - "5500:5000"
+            # Crea un volumen de espejo
+        volumes: 
+            - ./src:/app
+
+# Esto solo sirve para crear la base de datos en local
+    # basededatos:
+        # image: mongo

@@ -1,1 +1,6 @@
+# Entornos virtuales de desarrollo
 env
+
+# Carpetas de editores y IDEs
+.idea/
+.vscode/

@@ -23,7 +23,7 @@ def inicio():
     if 'email' in session:
         return redirect(url_for('createCalendario'))
     texto = 'Rellene los datos del formulario'
-    return render_template('inicio.html', texto = texto)
+    return render_template('index.html', texto = texto)
 
 
 @app.route('/', methods=['POST'])
@@ -43,13 +43,13 @@ def inicioSesion():
         if emailBD == email:
             texto = 'email'
             v = False
-            return render_template('inicio.html', texto = texto)
+            return render_template('index.html', texto = texto)
     if v == True:
         collection_usuario.insert_one({'usuario' : 'usuario', 'nombre' : nombre, 'apellidos' : apellidos, 'email' : email, 'password' : password, 'localidad' : localidad })
         session['email'] = email
         texto = 'Introduzca los datos'
         return redirect(url_for('createCalendario'))
-    return render_template('inicio.html', texto = texto)
+    return render_template('index.html', texto = texto)
 
 
 @app.route('/login')
@@ -69,7 +69,7 @@ def comprobar():
     if leer_email != []:
         for i in leer_email:
             if i['email'] == email and i['password'] == password:
-                return redirect(url_for('createCalendario'))
+                return redirect(url_for('home'))
     return render_template('login.html')
 
 

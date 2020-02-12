@@ -52,26 +52,5 @@
   
 
   
-  .container {
-    display: block;
-    padding-left: 35px;
-    margin-bottom: 14px;
-    cursor: pointer;
-    height: 30%;
-    background-color: rgb(255, 255, 255);
-    align-items: center;
-    text-align: center;
-    border-color: white;
-    border-start-end-radius: 12%;
-  }
-  
-  
-  .container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-  
-  
 
   

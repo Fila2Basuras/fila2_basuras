@@ -12,4 +12,4 @@ EXPOSE 5000
     # Arrancamos el proyecto
 CMD ["python3", "main.py"]
 
-VOLUME [ "./src", "./app" ]
+VOLUME [ "./src", "/app" ]

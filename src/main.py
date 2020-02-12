@@ -2,12 +2,19 @@ from flask import Flask, render_template, redirect, request, url_for
 from libreria import *
 import os
 
+from pymongo import MongoClient
+
 app = Flask(__name__)
 
+MONGO_URL_ATLAS = 'mongodb+srv://admin:TGTnmlU06H27VEf0@cluster0-6nuch.mongodb.net/test?retryWrites=true&w=majority'
+client = MongoClient(MONGO_URL_ATLAS, ssl_cert_reqs=False)
+db = client['agenda_residuos']
+collection = db['calendario']
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    ejemplo = list(collection.find({}))
+    return render_template('index.html', ejemplo=ejemplo)
 
 
 if __name__ == "__main__":

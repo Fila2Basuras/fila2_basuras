@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+
+    <div class="bg-img">
+        <form action="/login" method="post" class="logear">
+
+            <label for="email">
+                <b>Email</b>
+                <p class="control has-icons-left has-icons-right">
+                    <input
+                        type="email"
+                        class="input is-rounded"
+                        placeholder="Introduce tu Email"
+                        name="email"
+                        required="required">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                    </span>
+                </p>
+
+            </label>
+
+            <label for="psw">
+                <b>Contraseña</b>
+            </label>
+            <input
+                type="password"
+                class="input is-rounded"
+                placeholder="****"
+                name="contrasena"
+                required="required">
+
+            <button type="submit" class="botonLogin">Login</button>
+        </form>
+        <a href="/">Registrarse</a>
+        <a href="/login">Logearse</a>
+    </div>
+
+{% endblock %}

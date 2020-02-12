@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="../static/css/style.css">
     <title>{% block title %} Basuras - {% endblock %}</title>
 </head>
 
@@ -35,6 +36,21 @@
             </div>
         </footer>
     {% endblock %}
+    <section class="section">
+        <div>
+            {% block header %}
+
+            {% endblock %}
+
+            {% block main %}
+
+            {% endblock %}
+
+            {% block footer %}
+
+            {% endblock %}
+        </div>
+    </section>
 </body>
 
 </html>

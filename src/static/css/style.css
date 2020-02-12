@@ -1,0 +1,56 @@
+/* fondo de inicio */
+.fondo{
+    background-position: center;
+    background-repeat: no-repeat;
+  
+    background-size: cover;
+  }
+  
+  /* centrar  */
+.formulario0{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+
+/* login */
+.bg-img {
+    background-color: rgb(83, 48, 48);
+    min-height: 380px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  
+  .logear {
+    position: absolute;
+    right: 0;
+    margin: 20px;
+    max-width: 300px;
+    padding: 16px;
+    background-color: rgb(246, 250, 250);
+    border-radius: 4%;
+  }
+  
+  .botonLogin {
+    background-color: rgb(76, 175, 150);
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    margin-top: 5%;
+  }
+  
+  .botonLogin:hover {
+    opacity: 1;
+    background-color: rgb(4, 206, 162);
+  }
+  
+
+  
+
+  

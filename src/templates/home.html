@@ -3,16 +3,17 @@
 {{super()}}
 Home
 {% endblock %}
-
-
-{% block header %}
-
-{% endblock %}
-
 {% block main %}
-{{ usuario }}
-{% endblock %}
-
-{% block footer %}
-
+<table class="table is-striped">
+    <tbody>
+      {% for dia,horario in calendario.items() %}
+      <tr>
+          <th>{{ dia|capitalize }}</th>
+          {% for horario,tipo_residuo in horario.items() %}
+            <td><span class="tag is-medium"><img src="../static/img/{{ tipo_residuo }}.svg" alt="">{{ tipo_residuo|capitalize }}</span></td>
+          {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}

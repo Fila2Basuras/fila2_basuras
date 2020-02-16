@@ -70,6 +70,7 @@ def comprobar():
     if leer_email != []:
         for i in leer_email:
             if i['email'] == email and i['password'] == password:
+                session['email'] = email
                 return redirect(url_for('home'))
     return render_template('login.html')
 
@@ -77,12 +78,14 @@ def comprobar():
 def home():
     if 'email' in session:
         email = session["email"]
-        usuario = collection_usuarios.find_one({'email': email})
+        usuario = collection_usuario.find_one({'email': email})
         id = usuario["_id"]
-        calendario = collection.find_one({'usuario' : ObjectId(id)})
-        return render_template('home.html', usuario = calendario)
+        calendario = collection.find_one({'usuario' : ObjectId(id)}, {'usuario':0, '_id':0 })
+        if calendario is None:
+            return redirect(url_for('createCalendario'))
+        return render_template('home.html', calendario = calendario)
     else:
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
 
 if __name__ == "__main__":
     # Esto es un problema porque no le podemos poner un puerto de salida, para eso vamos a crear lo siguiente:

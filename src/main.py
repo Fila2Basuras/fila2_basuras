@@ -57,14 +57,18 @@ def inicioSesion():
 
 @app.route('/login')
 def login():
+    
+    texto = 'Introduce los datos'
     if 'email' in session:
+
         return redirect(url_for('createCalendario'))
-    return render_template('login.html')
+    return render_template('login.html', texto=texto)
 
 
 # comprobar el login
 @app.route('/login',methods=['POST'])
 def comprobar():
+    texto = 'La contraseña que ha introducido es incorrecta'
     email = request.form.get('email')
     password = request.form.get('contrasena')
     # comprobar en mongoDB si existe ese usuario
@@ -74,7 +78,9 @@ def comprobar():
             if i['email'] == email and i['password'] == password:
                 session['email'] = email
                 return redirect(url_for('home'))
-    return render_template('login.html')
+    else:
+        texto = 'El email que ha introducido no está en la base de datos'
+    return render_template('login.html', texto=texto)
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():

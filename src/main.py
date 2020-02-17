@@ -37,19 +37,21 @@ def inicioSesion():
     email = request.form.get("email")
     password = request.form.get("contrasena")
     localidad = request.form.get("localidad")
-    emailOK = collection.find({'usuario' : 'usuario'})
+    emailOK = list(collection_usuario.find({'usuario' : 'usuario'}))
     v = True
     for i in emailOK:
         emailBD = i['email']
         if emailBD == email:
             texto = 'email'
             v = False
-            return render_template('index.html', texto = texto)
     if v == True:
         collection_usuario.insert_one({'usuario' : 'usuario', 'nombre' : nombre, 'apellidos' : apellidos, 'email' : email, 'password' : password, 'localidad' : localidad })
         session['email'] = email
         texto = 'Introduzca los datos'
         return redirect(url_for('createCalendario'))
+    else:
+        texto = 'email'
+        return render_template('index.html', texto = texto)
     return render_template('index.html', texto = texto)
 
 

@@ -37,7 +37,7 @@ def inicioSesion():
     email = request.form.get("email")
     password = request.form.get("contrasena")
     localidad = request.form.get("localidad")
-    emailOK = collection.find({'usuario' : 'usuario'})
+    emailOK = collection.find({'email' : email})
     v = True
     for i in emailOK:
         emailBD = i['email']
@@ -46,7 +46,7 @@ def inicioSesion():
             v = False
             return render_template('index.html', texto = texto)
     if v == True:
-        collection_usuario.insert_one({'usuario' : 'usuario', 'nombre' : nombre, 'apellidos' : apellidos, 'email' : email, 'password' : password, 'localidad' : localidad })
+        collection_usuario.insert_one({'nombre' : nombre, 'apellidos' : apellidos, 'email' : email, 'password' : password, 'localidad' : localidad })
         session['email'] = email
         texto = 'Introduzca los datos'
         return redirect(url_for('createCalendario'))
@@ -66,13 +66,14 @@ def comprobar():
     email = request.form.get('email')
     password = request.form.get('contrasena')
     # comprobar en mongoDB si existe ese usuario
-    leer_email = list(collection_usuario.find({"usuario" : "usuario", "email" : email}))
+    leer_email = list(collection_usuario.find({"email" : email}))
     if leer_email != []:
         for i in leer_email:
             if i['email'] == email and i['password'] == password:
                 session['email'] = email
                 return redirect(url_for('home'))
     return render_template('login.html')
+
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
@@ -86,6 +87,16 @@ def home():
         return render_template('home.html', calendario = calendario)
     else:
         return redirect(url_for('inicio'))
+
+
+@app.route('/aTodoVirus')
+def createCalendario():
+    return render_template('provisional.html')
+
+@app.route('/cerrar')
+def cerrarSesion():
+    session.pop('email',None)
+    return render_template('index.html')
 
 if __name__ == "__main__":
     # Esto es un problema porque no le podemos poner un puerto de salida, para eso vamos a crear lo siguiente:

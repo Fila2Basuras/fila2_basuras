@@ -81,6 +81,8 @@ def home():
         usuario = collection_usuario.find_one({'email': email})
         id = usuario["_id"]
         calendario = collection.find_one({'usuario' : ObjectId(id)}, {'usuario':0, '_id':0 })
+        calendario_id = collection.find_one({'usuario' : ObjectId(id)}, {'_id':1 })
+        session['calendario_id'] = str(calendario_id['_id'])
         if calendario is None:
             return redirect(url_for('createCalendario'))
         return render_template('home.html', calendario = calendario)
@@ -123,6 +125,35 @@ def createCalendario():
                 collection.insert_one(calendario)
 
         return render_template('calendario/create.html', error=error, context=context)
+    else:
+        return redirect(url_for('inicio'))
+
+@app.route('/calendario/edit', methods=('GET', 'POST'))
+def editCalendario():
+    if 'email' in session:
+        email = session["email"]
+        calendario_id = session["calendario_id"]
+        calendario = collection.find_one({'_id' : ObjectId(calendario_id)}, {'usuario':0, '_id':0 })
+        context = {}
+        context['semana'] = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
+        context['horario_recogida'] = ['mañana', 'tarde', 'noche']
+        
+        context['opcion_recogida'] = ['ninguno', 'cristal', 'organicos', 'papel', 'plastico']
+        if request.method == 'POST':
+            calendario_editado = {}
+
+            for value in context['semana']:
+                calendario[value] = {}
+
+                for horario in context['horario_recogida']:
+                    
+                    input_name = value + '_' + horario
+                    calendario[value][horario] = request.form.get(input_name, '')
+                    
+            collection.update_one({'_id':ObjectId('{0}'.format(calendario_id))}, {'$set':{calendario_editado}})
+            return redirect(url_for('home'))
+                           
+        return render_template('calendario/edit.html', calendario=calendario, context=context)   
     else:
         return redirect(url_for('inicio'))
 

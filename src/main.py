@@ -84,11 +84,12 @@ def home():
         usuario = collection_usuario.find_one({'email': email})
         id = usuario["_id"]
         calendario = collection.find_one({'usuario' : ObjectId(id)}, {'usuario':0, '_id':0 })
-        calendario_id = collection.find_one({'usuario' : ObjectId(id)}, {'_id':1 })
-        session['calendario_id'] = str(calendario_id['_id'])
         if calendario is None:
             return redirect(url_for('createCalendario'))
-        return render_template('home.html', calendario = calendario)
+        else:
+            calendario_id = collection.find_one({'usuario' : ObjectId(id)}, {'_id':1 })
+            session['calendario_id'] = str(calendario_id['_id'])
+            return render_template('home.html', calendario = calendario)
     else:
         return redirect(url_for('inicio'))
 
@@ -138,28 +139,17 @@ def createCalendario():
 @app.route('/calendario/edit', methods=('GET', 'POST'))
 def editCalendario():
     if 'email' in session:
-        email = session["email"]
         calendario_id = session["calendario_id"]
-        calendario = collection.find_one({'_id' : ObjectId(calendario_id)}, {'usuario':0, '_id':0 })
-        context = {}
-        context['semana'] = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
-        context['horario_recogida'] = ['mañana', 'tarde', 'noche']
-        
+        calendario = collection.find_one({'_id' : ObjectId(calendario_id)}, {'usuario':0, '_id':0 })        
+        context = {}        
         context['opcion_recogida'] = ['ninguno', 'cristal', 'organicos', 'papel', 'plastico']
-        if request.method == 'POST':
-            calendario_editado = {}
-
-            for value in context['semana']:
-                calendario[value] = {}
-
-                for horario in context['horario_recogida']:
-                    
-                    input_name = value + '_' + horario
-                    calendario[value][horario] = request.form.get(input_name, '')
-                    
-            collection.update_one({'_id':ObjectId('{0}'.format(calendario_id))}, {'$set':{calendario_editado}})
-            return redirect(url_for('home'))
-                           
+        if request.method == 'POST':        
+            for dia,value in calendario.items():
+                for horario,tipo_residuo in value.items():
+                    input_name = str(dia) + '_' + str(horario)
+                    key = '{}.{}'.format(dia, horario)
+                    collection.update_one({'_id':ObjectId('{0}'.format(calendario_id))}, {'$set':{key:request.form.get(input_name)}})
+            return redirect(url_for('home'))                          
         return render_template('calendario/edit.html', calendario=calendario, context=context)   
     else:
         return redirect(url_for('inicio'))

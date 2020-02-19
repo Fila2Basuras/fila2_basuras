@@ -11,24 +11,24 @@ Configurar Calendario
     <div class="field">
         <label class="label">{{ dia|capitalize }}</p>
 
-            {% for horario,tipo_residuo in horario.items() %}
             <div class="control">
+                {% for horario,tipo in horario.items() %}
                 <div class="select">
                     <select name="{{ dia }}_{{ horario }}" id="{{ dia }}_{{ horario }}">
                         {% for opcion in context['opcion_recogida'] %}
-                    <option value="{{opcion}}">{{ opcion|capitalize }}</option>
-                    {% endfor %}
-                </select>
+                            <option value="{{opcion}}" {% if tipo == opcion %} selected="selected" {% endif %}>{{ opcion|capitalize }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-        </div>
+    </div>
 
     {% endfor %}
     <div class="field">
-    <div class="control">
-        <button class="button is-light" type="submit">Guardar</button>
-    </div>
+        <div class="control">
+            <button class="button is-light" type="submit">Guardar</button>
+        </div>
     </div>
 </form>
 

@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block title %}
+{{super()}}
+Configurar Calendario
+{% endblock %}
+
+{% block main %}
+
+<form action="" method="post">
+    {% for dia in context['semana'] %}
+    <div class="field">
+        <label class="label">{{ dia|capitalize }}</p>
+
+        <div class="control">
+        {% for horario in context['horario_recogida'] %}
+            <div class="select">
+                <select name="{{ dia }}_{{ horario }}" id="{{ dia }}_{{ horario }}">
+                    {% for opcion in context['opcion_recogida'] %}
+                        <option value="{{opcion}}">{{ opcion|capitalize }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endfor %}
+        </div>
+        </div>
+
+    {% endfor %}
+    <div class="field">
+    <div class="control">
+        <button class="button is-light" type="submit">Guardar</button>
+    </div>
+    </div>
+</form>
+
+{% endblock %}

@@ -87,6 +87,44 @@ def home():
     else:
         return redirect(url_for('inicio'))
 
+@app.route('/calendario/create', methods=('GET', 'POST'))
+def createCalendario():
+    if 'email' in session:
+        email = session["email"]
+        usuario = collection_usuario.find_one({'email': email})
+        id = usuario["_id"]
+        context = {}
+        context['semana'] = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
+        context['horario_recogida'] = ['mañana', 'tarde', 'noche']
+        context['opcion_recogida'] = ['ninguno', 'cristal', 'organicos', 'papel', 'plastico']
+        error = None
+
+        if request.method == 'POST':
+            calendario = {}
+
+            for value in context['semana']:
+                calendario[value] = {}
+
+                for horario in context['horario_recogida']:
+                    
+                    input_name = value + '_' + horario
+                    calendario[value][horario] = request.form.get(input_name, '')
+                    
+                    if calendario[value][horario] not in context['opcion_recogida'] and calendario[value][horario] != '':
+                        error = 'Valor no permitido'
+                        break
+                if error:
+                    break
+            
+            if not error:
+                #### GUARDAR EN DB
+                calendario['usuario'] = id
+                collection.insert_one(calendario)
+
+        return render_template('calendario/create.html', error=error, context=context)
+    else:
+        return redirect(url_for('inicio'))
+
 if __name__ == "__main__":
     # Esto es un problema porque no le podemos poner un puerto de salida, para eso vamos a crear lo siguiente:
     # SI HAY VARIABLE DE ENTORNO PORT COJE ESA VARIABLE, SI NO COJE EL 5000

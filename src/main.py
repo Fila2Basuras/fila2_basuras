@@ -37,7 +37,7 @@ def inicioSesion():
     email = request.form.get("email")
     password = request.form.get("contrasena")
     localidad = request.form.get("localidad")
-    emailOK = collection.find({'email' : email})
+    emailOK = collection_usuario.find({'email' : email})
     v = True
     for i in emailOK:
         emailBD = i['email']

@@ -18,7 +18,6 @@ db = client['agenda_residuos']
 collection = db['calendario']
 collection_usuario = db['usuarios']
 
-
 @app.route('/')
 def inicio():
     if 'email' in session:
@@ -89,9 +88,6 @@ def home():
         return redirect(url_for('inicio'))
 
 
-@app.route('/aTodoVirus')
-def createCalendario():
-    return render_template('provisional.html')
 
 @app.route('/cerrar')
 def cerrarSesion():

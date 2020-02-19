@@ -30,34 +30,35 @@ def inicio():
 def inicioSesion():
     if 'email' in session:
         return redirect(url_for('createCalendario'))
-    texto = 'Rellene los datos del formulario'
-    nombre = request.form.get("nombre")
-    apellidos = request.form.get("apellidos")
-    email = request.form.get("email")
-    password = request.form.get("contrasena")
-    localidad = request.form.get("localidad")
-    emailOK = collection_usuario.find({'email' : email})
-    v = True
-    for i in emailOK:
-        emailBD = i['email']
-        if emailBD == email:
-            texto = 'email'
-            v = False
-            return render_template('index.html', texto = texto)
-    if v == True:
-        collection_usuario.insert_one({'nombre' : nombre, 'apellidos' : apellidos, 'email' : email, 'password' : password, 'localidad' : localidad })
-        session['email'] = email
-        texto = 'Introduzca los datos'
-        return redirect(url_for('createCalendario'))
-    return render_template('login.html', texto = texto)
+    return render_template('login.html')
 
 
-@app.route('/login')
-def login():
+@app.route('/registro', methods=['POST','GET'])
+def registro():
     texto = ""
+    v = True
     if 'email' in session:
         return redirect(url_for('createCalendario'))
-    return render_template('login.html', texto=texto)
+
+    if request.method == 'POST':
+        texto = 'Rellene los datos del formulario'
+        nombre = request.form.get("nombre")
+        apellidos = request.form.get("apellidos")
+        email = request.form.get("email")
+        password = request.form.get("contrasena")
+        localidad = request.form.get("localidad")
+        emailOK = collection_usuario.find({'email' : email})
+        for i in emailOK:
+            emailBD = i['email']
+            if emailBD == email:
+                texto = 'email'
+                v = False
+        if v == True:
+            collection_usuario.insert_one({'nombre' : nombre, 'apellidos' : apellidos, 'email' : email, 'password' : password, 'localidad' : localidad })
+            session['email'] = email
+            texto = 'Introduzca los datos'
+            return redirect(url_for('createCalendario'))
+    return render_template('index.html', texto=texto)
 
 
 # comprobar el login

@@ -2,9 +2,9 @@
 
 {% block main %}
 <div style="text-align: center; padding: 2%;">
-  <a href="/login" class="button is-info is-focused">Logearse</a>
+  <a href="/" class="button is-info is-focused">Logearse</a>
   </div>
-<form action="/" method="post">
+<form action="{{ url_for('registro') }}" method="POST">
     <section class="fondo">
   <div class="formulario0">
       <section class="formulario">

@@ -5,12 +5,24 @@ Home
 {% endblock %}
 {% block main %}
 <table class="table is-striped">
+  <thead>
+    <th></th>
+    <th>Mañana</th>
+    <th>Tarde</th>
+    <th>Noche</th>
+  </thead>
     <tbody>
       {% for dia,horario in calendario.items() %}
       <tr>
           <th>{{ dia|capitalize }}</th>
           {% for horario,tipo_residuo in horario.items() %}
-            <td><span class="tag is-medium"><img src="../static/img/{{ tipo_residuo }}.svg" alt="">{{ tipo_residuo|capitalize }}</span></td>
+            {% if tipo_residuo != 'ninguno' %}
+            <td><span class="tag is-medium">
+              <img src="../static/img/{{ tipo_residuo }}.svg" alt=""><p>{{ tipo_residuo|capitalize }}</p>
+            </span></td>
+            {% else %}
+            <td></td>
+            {% endif %}
           {% endfor %}
       </tr>
       {% endfor %}

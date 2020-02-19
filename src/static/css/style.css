@@ -50,7 +50,31 @@
     background-color: rgb(4, 206, 162);
   }
   
+/* home */
+/* @media only screen and (max-width: 600px) {
+  th:nth-child(1) {
+    display: none ;
+  }
+} */
 
-  
+table, .tag{
+  width: 80%;
+  margin: auto;
+}
+  thead > tr > th{
+    text-align: center !important;
+  }
 
+  tr:nth-child(2n) > td > .tag{
+    background-color: white !important;
+  }
+
+  td > .tag{
+    border-radius: 20px !important;
+    display: flex !important;
+    justify-content: space-around !important;
+  }
   
+  .tag > img{
+    height: 2rem;
+  }

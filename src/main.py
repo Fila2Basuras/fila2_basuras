@@ -23,7 +23,7 @@ def inicio():
     if 'email' in session:
         return redirect(url_for('createCalendario'))
     texto = 'Rellene los datos del formulario'
-    return render_template('index.html', texto = texto)
+    return render_template('login.html', texto = texto)
 
 
 @app.route('/', methods=['POST'])
@@ -49,7 +49,7 @@ def inicioSesion():
         session['email'] = email
         texto = 'Introduzca los datos'
         return redirect(url_for('createCalendario'))
-    return render_template('index.html', texto = texto)
+    return render_template('login.html', texto = texto)
 
 
 @app.route('/login')
@@ -135,7 +135,7 @@ def createCalendario():
 @app.route('/cerrar')
 def cerrarSesion():
     session.pop('email',None)
-    return render_template('index.html')
+    return render_template('login.html')
 
 
 if __name__ == "__main__":

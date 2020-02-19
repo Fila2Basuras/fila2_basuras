@@ -96,8 +96,6 @@ def createCalendario():
         id = usuario["_id"]
         comprobar_tabla = list(collection.find({"usuario" : ObjectId(id)}))
         if comprobar_tabla == []:
-
-
             context = {}
             context['semana'] = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
             context['horario_recogida'] = ['mañana', 'tarde', 'noche']

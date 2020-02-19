@@ -2,10 +2,16 @@
 
 {% block main %}
 
-    <div class="bg-img">
-        <form action="/login" method="post" class="logear">
+<div style="text-align: end; padding: 2%;">
+<a href="/" class="button is-info is-focused">Registrarse</a>
+</div>
+<div class="bg-img">
 
-            <label for="email">
+
+    <form action="/login" method="post" class="logear">
+        
+        <label for="email">
+            <h3>{{texto}}</h3>
                 <b>Email</b>
                 <p class="control has-icons-left has-icons-right">
                     <input
@@ -36,8 +42,6 @@
 
             <button type="submit" class="botonLogin">Login</button>
         </form>
-        <a href="/">Registrarse</a>
-        <a href="/login">Logearse</a>
     </div>
 
 {% endblock %}
